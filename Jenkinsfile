@@ -3,12 +3,12 @@ pipeline {
     stages {
         stage('Install') {
             steps {
-                sh 'npm install'
+                bat 'npm install'
             }
         }
         stage('Test') {
             steps {
-                sh 'npm test'
+                bat 'npm test'
             }
         }
         stage('Build Docker Image') {
@@ -21,7 +21,7 @@ pipeline {
         stage('Deploy') {
             steps {
                 script {
-                    sh '''
+                    bat '''
                         docker stop my-node-app || true
                         docker rm my-node-app || true
                         docker run -d --name my-node-app -p 3000:3000 my-node-app:latest
