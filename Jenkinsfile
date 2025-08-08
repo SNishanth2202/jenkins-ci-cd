@@ -21,7 +21,11 @@ pipeline {
         stage('Deploy') {
             steps {
                 script {
-                    sh 'docker run -d --name my-node-app -p 3000:3000 my-node-app:latest || true'
+                    sh '''
+                        docker stop my-node-app || true
+                        docker rm my-node-app || true
+                        docker run -d --name my-node-app -p 3000:3000 my-node-app:latest
+                    '''
                 }
             }
         }
